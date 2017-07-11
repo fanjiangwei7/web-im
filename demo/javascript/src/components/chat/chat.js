@@ -369,7 +369,8 @@ module.exports = React.createClass({
             blacklist: {},
             chatrooms_totalnum: Demo.api.pagesize,
             contact_loading_show: false,
-            windows: windows
+            windows: windows,
+            fileId: null
         };
     },
 
@@ -1122,6 +1123,10 @@ module.exports = React.createClass({
     },
 
     sendFile: function (chatType) {
+        var fileId = Demo.conn.getUniqueId();
+        this.setState({
+            fileId: fileId
+        });
         if (WebIM.config.isWindowSDK) {
             this.sendFileImpl("file", chatType);
         } else {
@@ -1154,7 +1159,7 @@ module.exports = React.createClass({
     },
     fileChange: function () {
         var me = this,
-            uid = Demo.conn.getUniqueId(),
+            uid = this.state.fileId,
             msg = new WebIM.message('file', uid),
             chatroom = Demo.selectedCate === 'chatrooms',
             file = WebIM.utils.getFileUrl(me.refs.file),
