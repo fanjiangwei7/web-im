@@ -1876,7 +1876,7 @@ connection.prototype.send = function (messageSource) {
         }
     }
     if (this.isWindowSDK) {
-        WebIM.doQuery('{"type":"sendMessage","to":"' + message.to + '","message_type":"' + message.type + '","msg":"' + encodeURI(message.msg) + '","chatType":"' + message.chatType + '"}',
+        WebIM.doQuery('{"type":"sendMessage","to":"' + message.to + '","id":"' + message.id + '","message_type":"' + message.type + '","msg":"' + encodeURI(message.msg) + '","chatType":"' + message.chatType + '"}',
             function (response) {
             },
             function (code, msg) {

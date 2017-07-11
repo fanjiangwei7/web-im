@@ -290,6 +290,10 @@ module.exports = React.createClass({
                 Demo.api.updateRoster();
             },
             onReceivedMessage: function (message) {
+                // TODO: Window SDK
+                if (WebIM.config.isWindowSDK) {
+                    message = eval('(' + message + ')');
+                }
                 var msg = document.getElementById(message.id);
                 if (msg) {
                     msg.setAttribute('name', message.mid);
@@ -303,7 +307,7 @@ module.exports = React.createClass({
             onDeliveredMessage: function (message) {
                 // TODO: Window SDK
                 if (WebIM.config.isWindowSDK) {
-
+                    message = eval('(' + message + ')');
                 }
                 var msg = document.getElementsByName(message.mid);
                 // 记录消息的状态
@@ -321,7 +325,7 @@ module.exports = React.createClass({
             onReadMessage: function (message) {
                 // TODO: Window SDK
                 if (WebIM.config.isWindowSDK) {
-
+                    message = eval('(' + message + ')');
                 }
                 var msg = document.getElementsByName(message.mid);
                 if (msg) {

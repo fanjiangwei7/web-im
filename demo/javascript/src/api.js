@@ -353,20 +353,31 @@ module.exports = {
     sendRead: function (message) {
         // TODO: Window SDK
         if (WebIM.config.isWindowSDK) {
-
+            WebIM.doQuery('{"type":"sendReadAckForMessage","to":"' + message.from +  '","id":"' + message.id +'"}',
+                function (response) {
+                },
+                function (code, msg) {
+                    var message = {
+                        data: {
+                            data: "sendRead"
+                        },
+                        type: _code.WEBIM_MESSAGE_SED_ERROR
+                    };
+                    self.onError(message);
+                });
+        } else {
+            if (!WebIM.config.read)
+                return;
+            // 阅读消息时反馈一个已阅读
+            var msgId = Demo.conn.getUniqueId();
+            var bodyId = message.id;
+            var msg = new WebIM.message('read', msgId);
+            msg.set({
+                id: bodyId
+                , to: message.from
+            });
+            Demo.conn.send(msg.body);
         }
-        if (!WebIM.config.read)
-            return;
-        // 阅读消息时反馈一个已阅读
-        var msgId = Demo.conn.getUniqueId();
-        var bodyId = message.id;
-        var msg = new WebIM.message('read', msgId);
-        msg.set({
-            id: bodyId
-            , to: message.from
-        });
-        Demo.conn.send(msg.body);
-
     },
 
     getBrief: function (data, type) {
