@@ -1,5 +1,42 @@
 # 版本更新说明:
 
+## v1.4.13 @ 2017-09-12
+
+###Feature
+
+* [sdk] 新增jsdoc
+
+###BugFix
+
+* [sdk]  ios(8.1)webview 已读和已送到回执异常
+* [sdk]  多设备登录异常
+* [demo] 多设备登录异常
+
+
+## v1.4.12 @ 2017-06-17
+
+###Feature
+
+* [sdk] 修改delivery ack和read ack的格式
+* [sdk] 用户在离线状态下发送消息，会自动重连并将未成功发送的消息发送出去
+* [sdk] WEBIM支持多设备，添加加入聊天室事件
+* [sdk] 给delivered和ack加上from字段
+* [demo] 添加Rest Interface的 Test case
+* [demo] sdk/demo上传功能兼容ie8
+
+###BugFix
+
+* [sdk] 提升ie8的兼容性
+* [sdk] 自己发送的消息的已读ack，不再发送给自己
+* [demo] 新建需要审批的公有群，加入必须有审批流程
+* [demo] 鼠标悬浮在群禁言图标上出现提示信息"禁言"
+* [demo] demo.html中从cdn引入sdk
+* [demo] 修复无法准确统计离线消息数的bug
+* [demo] window.history.pushState在windows的chrome上有兼容性问题，统一改成window.location.href
+* [demo] window.location.href = xxxx，如果修改的是href.search参数(?a=x&b=y)时候, 如果遇到file方式打开本地index.html会直接跳转页面，造成登录一直不成功，改成修改 href.hash 参数(#a=x&b=y)
+* [demo] 将群管理员可操作的项目展示给管理员
+
+
 ## v1.4.11 @ 2017-06-07
 
 ###Feature
@@ -188,6 +225,41 @@
    
 ---
 # ChangeLog:
+
+## v1.4.13 @ 2017-09-12
+
+###Feature
+
+* [sdk] add jsdoc
+
+###BugFix
+
+* [sdk]  delevered/acked message bug in ios(8.1) webview 
+* [sdk]  multilogin bugs
+* [demo] multilogin bugs
+
+## v1.4.12 @ 2017-06-17
+
+###Feature
+
+* [sdk] Modify format of delivery ack and read ack
+* [sdk] Will auto reconnect and send the messages didn't sent when user send messages offline
+* [sdk] WebIM support multiple devices, add join chat room event
+* [sdk] Add "from" attribute for delivery ack and read ack
+* [demo] Add test case of rest interface
+* [demo] Upload file function for IE8 compatible in sdk/demo.html
+
+###BugFix
+
+* [sdk] Backward compatible for IE8
+* [sdk] Force not to send read ack to user self
+* [demo] Fix the bug of creating public group
+* [demo] Will show a message with "mute" when the mouse hover on the group mute icon
+* [demo] Quote sdk from cdn in demo.html
+* [demo] Correct the offline message amount
+* [demo] Change window.history.pushState into window.location.href
+* [demo] Change window.location.href = xxxx into href.hash
+* [demo] Show the available operations to administrators
 
 ## v1.4.11 @ 2017-06-07
 

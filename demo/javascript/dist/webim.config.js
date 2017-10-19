@@ -30,9 +30,9 @@ WebIM.config = {
      * true: A visitor can sign in to multiple webpages and receive messages at all the webpages.
      * false: A visitor can sign in to only one webpage and receive messages at the webpage.
      */
-    isMultiLoginSessions: false,
+    isMultiLoginSessions: true,
     /*
-     * Set to auto sign-in
+     * set presence after login
      */
     isAutoLogin: true,
     /**
@@ -94,6 +94,13 @@ WebIM.config = {
      * See call back function onReadMessage
      */
     read: true,
+
+    /**
+     * When a message sent or arrived, will save it into the localStorage,
+     * true: Store the chat record
+     * false: Don't store the chat record 
+     */
+    saveLocal: false,
 
     /**
      * Will encrypt text message and emoji message

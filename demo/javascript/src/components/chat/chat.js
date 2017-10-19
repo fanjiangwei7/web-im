@@ -74,6 +74,8 @@ module.exports = React.createClass({
                 // Demo.api.logout();
             },
             onTextMessage: function (message) {
+                console.log('Message: ', message);
+
                 if (WebIM.config.isWindowSDK) {
                     message = eval('(' + message + ')');
                 }
@@ -217,6 +219,7 @@ module.exports = React.createClass({
             },
             onOnline: function () {
                 // log(WebIM.utils.ts(), 'online');
+                console.log('onOnline');
             },
             onOffline: function () {
                 if (WebIM.config.isWindowSDK) {
@@ -267,7 +270,7 @@ module.exports = React.createClass({
                     } else {
                         if (text == 'logout' || text == 'WEBIM_CONNCTION_SERVER_ERROR  type=8') {
                             text = Demo.lan.logoutSuc;
-                            window.location.href = '#'
+                            window.location.href = '#';
                             Demo.api.NotifySuccess(text);
                         } else {
                             Demo.api.NotifyError('onError:' + text);
@@ -627,7 +630,10 @@ module.exports = React.createClass({
                 Demo.api.NotifySuccess('Fail to Join the group');
                 break;
             case 'memberJoinPublicGroupSuccess':
-                Demo.api.NotifySuccess(msg.mid + '已成功加入' + msg.from);
+                Demo.api.NotifySuccess(msg.mid + '已成功加入群组' + msg.from);
+                break;
+            case 'memberJoinChatRoomSuccess':
+                Demo.api.NotifySuccess(msg.mid + '已成功加入聊天室' + msg.from);
                 break;
             case 'joinPublicGroupDeclined':
                 Demo.api.NotifyError(msg.owner + '拒绝了您加入' + msg.gid + '的请求');
@@ -735,6 +741,20 @@ module.exports = React.createClass({
                     else
                         me.setState({friends: friends, windows: []});
                     doNotUpdateGroup || me.getGroup();
+
+                    var localChatRecord = null;
+                    try {
+                        localChatRecord = Demo.conn.getLocal();
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    Demo.chatRecord = {};
+
+                    Demo.first = false;
+                    for (var i in localChatRecord) {
+                        var record = localChatRecord[i];
+                        Demo.api.addToChatRecord(record, record.msgType, record.msgStatus);
+                    }
                     Demo.api.releaseChatRecord();
                 }
             });
@@ -797,7 +817,6 @@ module.exports = React.createClass({
                 });
         } else {
             Demo.conn.getChatRooms({
-                apiUrl: Demo.conn.apiUrl,
                 pagenum: pagenum,
                 pagesize: Demo.api.pagesize,
                 success: function (list) {
